@@ -1,117 +1,159 @@
+import 'package:YksPuanmatik/client/hive_names.dart';
+import 'package:YksPuanmatik/models/results.dart';
+import 'package:YksPuanmatik/models/state_model.dart';
 import 'package:flutter/material.dart';
+import 'theme/theme.dart';
+import 'screens/home.dart';
+import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(ResultsAdapter());
+  await Hive.openBox<Results>(HiveBoxes.results);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // TYT
+  final double turkceNet = 0;
+  final double sosyalNet = 0;
+  final double matematikNet = 0;
+  final double fenNet = 0;
+  final int falseCountSos = 0;
+  final int falseCountTr = 0;
+  final int falseCountFen = 0;
+  final int falseCountMat = 0;
+  final int trueCountSos = 0;
+  final int trueCountTr = 0;
+  final int trueCountFen = 0;
+  final int trueCountMat = 0;
+
+  final double diploma = 0;
+
+  // AYT SAY
+  final double aytMatNet = 0;
+  final double aytFizikNet = 0;
+  final double aytKimyaNet = 0;
+  final double aytBiyolojiNet = 0;
+  final int falseCountAytMat = 0;
+  final int falseCountAytFizik = 0;
+  final int falseCountAytKimya = 0;
+  final int falseCountAytBiyoloji = 0;
+  final int trueCountAytMat = 0;
+  final int trueCountAytFizik = 0;
+  final int trueCountAytKimya = 0;
+  final int trueCountAytBiyoloji = 0;
+
+  // ATY ESIT AGIRLIK
+  final double aytEdebNet = 0;
+  final double aytTarih1Net = 0;
+  final double aytCog1Net = 0;
+  final int fCountAytEdeb = 0;
+  final int fCountAytTarih1 = 0;
+  final int fCountAytCog1 = 0;
+  final int tCountAytEdeb = 0;
+  final int tCountAytTarih1 = 0;
+  final int tCountAytCog1 = 0;
+
+  // DIL
+  final double dilNet = 0;
+  final int tCountDil = 0;
+  final int fCountDil = 0;
+
+  // AYT SOZEL
+  final double aytTarih2Net = 0;
+  final double aytCog2Net = 0;
+  final double aytFelsefeNet = 0;
+  final double aytDinNet = 0;
+  final int fCountAytTarih2 = 0;
+  final int fCountAytCog2 = 0;
+  final int fCountAytFelsefe = 0;
+  final int fCountAytDin = 0;
+  final int tCountAytTarih2 = 0;
+  final int tCountAytCog2 = 0;
+  final int tCountAytFelsefe = 0;
+  final int tCountAytDin = 0;
+  final int appBarTitleIndex = 0;
+
+  // PUANLAR
+  final double tytPuan = 0;
+  final double aytSayPuan = 0;
+  final double aytEsitPuan = 0;
+  final double aytSozelPuan = 0;
+  final double aytDilPuan = 0;
+
+  final bool diplomaState = false;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (_) => StateModel(
+        turkceNet,
+        sosyalNet,
+        matematikNet,
+        fenNet,
+        falseCountTr,
+        falseCountSos,
+        falseCountMat,
+        falseCountFen,
+        trueCountTr,
+        trueCountSos,
+        trueCountMat,
+        trueCountFen,
+        diploma,
+        aytMatNet,
+        aytFizikNet,
+        aytKimyaNet,
+        aytBiyolojiNet,
+        falseCountAytMat,
+        falseCountAytFizik,
+        falseCountAytKimya,
+        falseCountAytBiyoloji,
+        trueCountAytMat,
+        trueCountAytFizik,
+        trueCountAytKimya,
+        trueCountAytBiyoloji,
+        aytEdebNet,
+        aytTarih1Net,
+        aytCog1Net,
+        fCountAytEdeb,
+        fCountAytTarih1,
+        fCountAytCog1,
+        tCountAytEdeb,
+        tCountAytTarih1,
+        tCountAytCog1,
+        dilNet,
+        fCountDil,
+        tCountDil,
+        aytTarih2Net,
+        aytCog2Net,
+        aytFelsefeNet,
+        aytDinNet,
+        fCountAytTarih2,
+        fCountAytCog2,
+        fCountAytFelsefe,
+        fCountDil,
+        tCountAytTarih2,
+        tCountAytCog2,
+        tCountAytFelsefe,
+        tCountAytDin,
+        appBarTitleIndex,
+        tytPuan,
+        aytSayPuan,
+        aytEsitPuan,
+        aytSozelPuan,
+        aytDilPuan,
+        diplomaState,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      child: MaterialApp(
+        title: 'Yks Puanmatik',
+        debugShowCheckedModeBanner: false,
+        theme: theme(),
+        home: Home(),
+        //initialRoute: ,
+        //routes: ,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
